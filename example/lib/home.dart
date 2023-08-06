@@ -22,7 +22,7 @@ class Home extends StatelessWidget {
         padding: EdgeInsets.all(20.0),
         child: TextButton(
           child: Text(url),
-          onPressed: () => _handleURLButtonPress(context, url),
+          onPressed: () => CustomAlertBox.dhaABW(context),
         ));
   }
 

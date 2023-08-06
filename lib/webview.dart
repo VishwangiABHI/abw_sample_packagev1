@@ -2,6 +2,8 @@ import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart' as wv;
+import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class WebView extends StatefulWidget {
   const WebView({Key? key}) : super(key: key);
@@ -45,6 +47,27 @@ class _WebViewPageState extends State<WebViewPage> {
   final Completer<wv.WebViewController> _controller =
       Completer<wv.WebViewController>();
 
+  Future webViewMethod() async {
+    print('In Microphone permission method');
+    WidgetsFlutterBinding.ensureInitialized();
+
+    Permission.microphone.request();
+    WebViewMethodForCamera();
+  }
+
+  Future WebViewMethodForCamera() async {
+    print('In Camera permission method');
+    WidgetsFlutterBinding.ensureInitialized();
+    Permission.camera.request();
+    WebViewMethodForStorage();
+  }
+
+  Future WebViewMethodForStorage() async {
+    print('In storage permission method');
+    WidgetsFlutterBinding.ensureInitialized();
+    await Permission.storage.request();
+  }
+
   @override
   void initState() {
     if (Platform.isAndroid) {
@@ -53,24 +76,51 @@ class _WebViewPageState extends State<WebViewPage> {
     super.initState();
   }
 
+  // @override
+  // Widget build(BuildContext context) {
+  //   return wv.WebView(
+  //     initialUrl: widget.url,
+  //     javascriptMode: wv.JavascriptMode.unrestricted,
+  //     onWebViewCreated: (wv.WebViewController webViewController) {
+  //       _controller.complete(webViewController);
+  //     },
+  //     onProgress: (int progress) {
+  //       print('WebView is loading (progress : $progress%)');
+  //     },
+  //     onPageStarted: (String url) {
+  //       print('Page started loading: $url');
+  //     },
+  //     onPageFinished: (String url) {
+  //       print('Page finished loading: $url');
+  //     },
+  //     gestureNavigationEnabled: true,
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
-    return wv.WebView(
-      initialUrl: widget.url,
-      javascriptMode: wv.JavascriptMode.unrestricted,
-      onWebViewCreated: (wv.WebViewController webViewController) {
-        _controller.complete(webViewController);
+    InAppWebViewController _webViewController;
+    return InAppWebView(
+      initialUrlRequest: URLRequest(url: Uri.parse(widget.url.toString())),
+      initialOptions: InAppWebViewGroupOptions(
+        crossPlatform: InAppWebViewOptions(
+            mediaPlaybackRequiresUserGesture: false, useOnDownloadStart: true
+            //    debuggingEnabled: true,
+            ),
+      ),
+      onWebViewCreated: (InAppWebViewController controller) {
+        _webViewController = controller;
       },
-      onProgress: (int progress) {
-        print('WebView is loading (progress : $progress%)');
+      onDownloadStartRequest: (controller, url) async {
+        print("onDownloadStart $url");
       },
-      onPageStarted: (String url) {
-        print('Page started loading: $url');
+      androidOnPermissionRequest: (InAppWebViewController controller,
+          String origin, List<String> resources) async {
+        webViewMethod();
+        return PermissionRequestResponse(
+            resources: resources,
+            action: PermissionRequestResponseAction.GRANT);
       },
-      onPageFinished: (String url) {
-        print('Page finished loading: $url');
-      },
-      gestureNavigationEnabled: true,
     );
   }
 }

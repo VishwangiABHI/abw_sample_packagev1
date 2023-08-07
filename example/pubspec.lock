@@ -5,10 +5,10 @@ packages:
     dependency: "direct main"
     description:
       name: abw_sample_packagev1
-      sha256: "6e93582d5f08424ad4edc13a71859f557f633694c22fa6706ce41870f88e01f2"
+      sha256: "581dc8fb3ca73a8902bc3a6de149cd124726309a700fab9d522c8afa5921c079"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.3"
+    version: "0.0.4"
   async:
     dependency: transitive
     description:

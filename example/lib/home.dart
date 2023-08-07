@@ -23,7 +23,7 @@ class Home extends StatelessWidget {
         child: TextButton(
           child: Text(url),
           onPressed: () =>
-              CustomAlertBox.dhaABW(context, "4", "Vishwangi", "Shah", "abcd"),
+              DHAABWCustom.dhaABW(context, "4", "Vishwangi", "Shah", "abcd"),
         ));
   }
 

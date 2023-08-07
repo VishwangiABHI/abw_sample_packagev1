@@ -1,32 +1,36 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart' as wv;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class WebView extends StatefulWidget {
-  const WebView({Key? key}) : super(key: key);
+  final String customerIDValue;
+  final String firstNameValue;
+  final String lastNameValue;
+  const WebView(
+      {Key? key,
+      required this.customerIDValue,
+      required this.firstNameValue,
+      required this.lastNameValue})
+      : super(key: key);
 
   @override
   State<WebView> createState() => _WebViewState();
 }
 
 class _WebViewState extends State<WebView> {
-  //HomeViewModel homeViewModel = HomeViewModel();
-
   @override
   void initState() {
-    //homeViewModel.getCombinedHomeData();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
-    return const WebViewPage(
+    return WebViewPage(
       url:
-          "https://mtpre.adityabirlahealth.com/execute/journey/650115dd-b2ec-4cc6-94c4-dd3367a61590?&token=&customer_id=2&firstname=rohan&lastname=vish&source=abcd&clientcode=abcd",
+          "https://mtpre.adityabirlahealth.com/execute/journey/650115dd-b2ec-4cc6-94c4-dd3367a61590?&token=&customer_id=${widget.customerIDValue}&firstname=${widget.firstNameValue}&lastname=${widget.lastNameValue}&source=abcd&clientcode=abcd",
     );
   }
 }
@@ -44,8 +48,8 @@ class WebViewPage extends StatefulWidget {
 }
 
 class _WebViewPageState extends State<WebViewPage> {
-  final Completer<wv.WebViewController> _controller =
-      Completer<wv.WebViewController>();
+/*  final Completer<AndroidInAppWebViewController> _controller =
+      Completer<AndroidInAppWebViewController>();*/
 
   Future webViewMethod() async {
     print('In Microphone permission method');
@@ -71,7 +75,7 @@ class _WebViewPageState extends State<WebViewPage> {
   @override
   void initState() {
     if (Platform.isAndroid) {
-      wv.WebView.platform = wv.SurfaceAndroidWebView();
+      //wv.WebView.platform = wv.SurfaceAndroidWebView();
     }
     super.initState();
   }

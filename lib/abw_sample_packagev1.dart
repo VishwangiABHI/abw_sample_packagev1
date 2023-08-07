@@ -3,7 +3,7 @@ library abw_sample_packagev1;
 import 'package:abw_sample_packagev1/webview.dart';
 import 'package:flutter/material.dart';
 
-class CustomAlertBox {
+class DHAABWCustom {
   static dhaABW(BuildContext context, String customerID, String firstName,
       String lastName, String clientCode) {
     Navigator.push(

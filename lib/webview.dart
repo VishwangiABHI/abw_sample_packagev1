@@ -8,11 +8,13 @@ class WebView extends StatefulWidget {
   final String customerIDValue;
   final String firstNameValue;
   final String lastNameValue;
+  final String clientCodeValue;
   const WebView(
       {Key? key,
       required this.customerIDValue,
       required this.firstNameValue,
-      required this.lastNameValue})
+      required this.lastNameValue,
+      required this.clientCodeValue})
       : super(key: key);
 
   @override
@@ -30,7 +32,7 @@ class _WebViewState extends State<WebView> {
     var height = MediaQuery.of(context).size.height;
     return WebViewPage(
       url:
-          "https://mtpre.adityabirlahealth.com/execute/journey/650115dd-b2ec-4cc6-94c4-dd3367a61590?&token=&customer_id=${widget.customerIDValue}&firstname=${widget.firstNameValue}&lastname=${widget.lastNameValue}&source=abcd&clientcode=abcd",
+          "https://mtpre.adityabirlahealth.com/execute/journey/650115dd-b2ec-4cc6-94c4-dd3367a61590?&token=&customer_id=${widget.customerIDValue}&firstname=${widget.firstNameValue}&lastname=${widget.lastNameValue}&source=${widget.clientCodeValue}&clientcode=${widget.clientCodeValue}",
     );
   }
 }

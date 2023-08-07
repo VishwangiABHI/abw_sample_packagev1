@@ -3,7 +3,6 @@ package io.flutter.plugins;
 import io.flutter.plugin.common.PluginRegistry;
 import com.pichillilorenzo.flutter_inappwebview.InAppWebViewFlutterPlugin;
 import com.baseflow.permissionhandler.PermissionHandlerPlugin;
-import io.flutter.plugins.webviewflutter.WebViewFlutterPlugin;
 
 /**
  * Generated file. Do not edit.
@@ -15,7 +14,6 @@ public final class GeneratedPluginRegistrant {
     }
     InAppWebViewFlutterPlugin.registerWith(registry.registrarFor("com.pichillilorenzo.flutter_inappwebview.InAppWebViewFlutterPlugin"));
     PermissionHandlerPlugin.registerWith(registry.registrarFor("com.baseflow.permissionhandler.PermissionHandlerPlugin"));
-    WebViewFlutterPlugin.registerWith(registry.registrarFor("io.flutter.plugins.webviewflutter.WebViewFlutterPlugin"));
   }
 
   private static boolean alreadyRegisteredWith(PluginRegistry registry) {
